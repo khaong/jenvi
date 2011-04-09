@@ -1,5 +1,6 @@
 var labelType, useGradients, nativeTextSupport, animate;
 var rootNodeName;
+var st;
 
 (function() {
   var ua = navigator.userAgent,
@@ -49,11 +50,11 @@ function createLabel(label, node){
     label.id = node.id;            
     label.innerHTML = node.name + ' #' + '<span>' + node.data.buildNumber + '</span>';
     label.onclick = function(){
-    	if(normal.checked) {
+      // if(normal.checked) {
     	  st.onClick(node.id);
-    	} else {
-        st.setRoot(node.id, 'animate');
-    	}
+      // } else {
+      //         st.setRoot(node.id, 'animate');
+      //       }
     };
     //set label styles
     var style = label.style;
@@ -205,7 +206,7 @@ function buildTree(st, jobUrl, onComplete) {
 }
 
 function init() {
-  var st = createSpaceTree();
+  st = createSpaceTree();
   
   //Add event handlers to switch spacetree orientation.
   var top = $jit.id('r-top'), 
