@@ -50,11 +50,7 @@ function createLabel(label, node){
     label.id = node.id;            
     label.innerHTML = node.name + ' #' + '<span>' + node.data.buildNumber + '</span>';
     label.onclick = function(){
-      // if(normal.checked) {
-    	  st.onClick(node.id);
-      // } else {
-      //         st.setRoot(node.id, 'animate');
-      //       }
+  	  st.onClick(node.id);
     };
     //set label styles
     var style = label.style;
@@ -156,12 +152,6 @@ function convertProjectToNode(project) {
 
 function retrieveJobInfo(project, node) {
   $.getJSON(project.url + 'api/json?jsonp=?', function(data) {
-    // st.addSubtree(
-    //   {"id" : rootNodeName, "children" : [convertProjectToNode(data)]}, 
-    //   'animate', {
-    //     hideLabels : false,
-    //     onAfterCompute: function() { Log.write("subtree added"); }
-    // });
     var newNode = convertProjectToNode(data);
     node.children.push(newNode);
     $.each(data.upstreamProjects, function(index, project) {
@@ -247,14 +237,5 @@ function init() {
      //emulate a click on the root node.
      st.onClick(st.root);
      //end
-    
-    // var stuff = {"id" : "idx", "name" : "name"};
-    // st.addSubtree(
-    //   {"id" : rootNodeName, "children" : [stuff]}, 
-    //   'animate', {
-    //     hideLabels : false,
-    //     onAfterCompute: function() { Log.write("subtree added"); },
-    // });
-
   };
 };
