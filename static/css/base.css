@@ -28,7 +28,7 @@ a {
 }
 
 #container {
-    width: 1000px;
+    width: 1200px;
     height: 600px;
     margin:0 auto;
     position:relative;
@@ -72,7 +72,7 @@ a {
 }
 
 #center-container {
-    width:600px;
+    width:800px;
     left:200px;
     background-color:#1a1a1a;
     color:#ccc;
@@ -99,7 +99,7 @@ a {
 
 #infovis {
     position:relative;
-    width:600px;
+    width:800px;
     height:600px;
     margin:auto;
     overflow:hidden;

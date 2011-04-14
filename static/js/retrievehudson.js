@@ -32,19 +32,28 @@ function translateColour(colour) {
     case "blue":
       return "#0f0";
       break;
+    case "blue_anime":
+      return "#aaf";
+      break;  
     case "red":
       return "#f00";
       break;
     case "red_anime":
       return "#f80";
-      break;  
-    case "yellow":
-      return "#0ff";
       break;
+    case "yellow":
+      return "#ff0";
+      break;
+    case "yellow_anime":
+      return "#ff0";
+      break;  
     default:
       return "#aaa";
   }
 }
+
+var nodeWidth = 100;
+var nodeHeight = 40;
 
 function createLabel(label, node){
     label.id = node.id;            
@@ -54,8 +63,8 @@ function createLabel(label, node){
     };
     //set label styles
     var style = label.style;
-    style.width = 70 + 'px';
-    style.height = 30 + 'px';            
+    style.width = nodeWidth + 'px';
+    style.height = nodeHeight + 'px';            
     style.cursor = 'pointer';
     style.color = '#333';
     style.fontSize = '0.8em';
@@ -73,6 +82,12 @@ function createSpaceTree() {
         transition: $jit.Trans.Quart.easeInOut,
         //set distance between node and its children
         levelDistance: 50,
+        levelsToShow: 4,
+
+        orientation: "right",
+        align: "center",
+        offsetX: -340,
+
         //enable panning
         Navigation: {
           enable:true,
@@ -82,8 +97,8 @@ function createSpaceTree() {
         //set overridable=true for styling individual
         //nodes or edges
         Node: {
-            height: 30,
-            width: 70,
+            height: nodeHeight,
+            width: nodeWidth,
             type: 'rectangle',
             color: '#aaa',
             overridable: true
