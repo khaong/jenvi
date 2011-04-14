@@ -46,8 +46,8 @@ function translateColour(colour) {
   
 }
 
-var nodeWidth = 100;
-var nodeHeight = 40;
+var nodeWidth = 120;
+var nodeHeight = 45;
 
 function createLabel(label, node){
     label.id = node.id;            
@@ -62,7 +62,8 @@ function createLabel(label, node){
     style.cursor = 'pointer';
     style.color = '#333';
     style.fontSize = '0.8em';
-    style.textAlign= 'center';
+    style.textAlign = 'center';
+    style.verticalAlign = 'middle';
     style.paddingTop = '3px';
 }
 
