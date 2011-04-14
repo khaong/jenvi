@@ -1,5 +1,10 @@
 var labelType, useGradients, nativeTextSupport, animate;
-var st;
+var st, rootNode;
+var sentinel = {
+  notifyStartedJob: function() {
+    
+  }
+};
 
 (function() {
   var ua = navigator.userAgent,
@@ -167,10 +172,11 @@ function retrieveJobInfo(project, node) {
 }
 
 function notifyLoaded(node) {
-  $('#id-list').prepend('<li>Loaded ' + node.name + '</li>')
+  $('#id-list').prepend('<li>Loaded ' + node.name + '</li>');
+  
 }
 
-function buildTree(st, jobUrl, onComplete) {
+function buildTree(jobUrl) {
   $.getJSON(jobUrl + '/api/json?jsonp=?', function(data) {
     
     rootNode = convertProjectToNode(data);
@@ -181,6 +187,21 @@ function buildTree(st, jobUrl, onComplete) {
     
     notifyLoaded(rootNode);
   });  
+}
+
+function renderTree() {
+  //load json data
+  st.loadJSON(rootNode);
+  //compute node positions and layout
+  st.compute();
+  //optional: make a translation of the tree
+  st.geom.translate(new $jit.Complex(-200, 0), "current");
+  //emulate a click on the root node.
+  st.onClick(st.root);
+};
+
+function isEnterKey(event) {
+  return event.which == '13';
 }
 
 function init() {
@@ -205,31 +226,16 @@ function init() {
   };
 
   top.onchange = left.onchange = bottom.onchange = right.onchange = changeHandler;
-  //end
   
-  
-  var addButton = document.getElementById('load-pipeline');
-  var jobUrlField = document.getElementById('job-url');
-
   $('#job-url').keypress(function(event) {
-    if (event.which == '13') {
-      buildTree(st, jobUrlField.value);
+    if (isEnterKey(event)) {
+      buildTree($('#job-url').val());
     }
   });
-  addButton.onclick = function() {
-    buildTree(st, jobUrlField.value);
-  };
   
-  var refreshButton = document.getElementById('show-tree');
-  refreshButton.onclick = function() {
-     //load json data
-     st.loadJSON(rootNode);
-     //compute node positions and layout
-     st.compute();
-     //optional: make a translation of the tree
-     st.geom.translate(new $jit.Complex(-200, 0), "current");
-     //emulate a click on the root node.
-     st.onClick(st.root);
-     //end
-  };
+  $('#load-pipeline').click(function() {
+    buildTree($('#job-url').val());
+  });
+  
+  $('#show-tree').click(renderTree);
 };
