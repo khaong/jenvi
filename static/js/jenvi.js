@@ -1,5 +1,4 @@
 var labelType, useGradients, nativeTextSupport, animate;
-var rootNodeName;
 var st;
 
 (function() {
@@ -28,28 +27,23 @@ var Log = {
 };
 
 function translateColour(colour) {
-  switch(colour) {
-    case "blue":
-      return "#0f0";
-      break;
-    case "blue_anime":
-      return "#aaf";
-      break;  
-    case "red":
-      return "#f00";
-      break;
-    case "red_anime":
-      return "#f80";
-      break;
-    case "yellow":
-      return "#ff0";
-      break;
-    case "yellow_anime":
-      return "#ff0";
-      break;  
-    default:
-      return "#aaa";
+  var default_colour = "#aaa";
+  var colours = {
+    "blue" : "#0f0",
+    "blue_anime" : "#aaf",
+    "red" : "#f00",
+    "red_anime" : "#f80",
+    "yellow" : "#ff0",
+    "yellow_anime" : "#fa2",
+    "grey" : default_colour,
   }
+  
+  if (colours[colour] == undefined) {
+    return default_colour;
+  } else {
+    return colours[colour];
+  }
+  
 }
 
 var nodeWidth = 100;
@@ -149,17 +143,13 @@ function createSpaceTree() {
     });
 }
 
-function createRootNode(project) {
-  rootNodeName = project.displayName;
-  return convertProjectToNode(project);
-}
 function convertProjectToNode(project) {
   return {
     "id" : project.displayName,
     "name" : project.displayName,
     "data" : { 
       "status" : project.color,
-      "buildNumber" : project.lastCompletedBuild.number,
+      "buildNumber" : project.lastCompletedBuild == null ? 0 : project.lastCompletedBuild.number,
       },
     "children" : []
   }
@@ -175,38 +165,20 @@ function retrieveJobInfo(project, node) {
   });
 }
 
-function buildItemList(data) {
-    var items = [];
-    items.push('<li>' + data.displayName + '</li>');
-    items.push('<li>' + data.color + '</li>');
-    items.push('<li>#' + data.lastCompletedBuild.number + '</li>');
-    items.push('<li>Upstream builds:<ul>');
-    $.each(data.upstreamProjects, function(key, value) {
-      items.push('<li>' + value.name + ' : ' + value.color + '</li>');
-    });
-    items.push('</ul></li>');
-    items.push('<li>Downstream builds:<ul>');
-    $.each(data.downstreamProjects, function(key, value) {
-      items.push('<li>' + value.name + ' : ' + value.color + '</li>');
-    });
-    items.push('</ul></li>');
-    
-    $('<ul/>', {
-      'class': 'my-new-list',
-      html: items.join('')
-    }).appendTo('#stuff');
+function notifyLoaded(node) {
+  $('#id-list').prepend('<li>Loaded ' + node.name + '</li>')
 }
 
 function buildTree(st, jobUrl, onComplete) {
   $.getJSON(jobUrl + '/api/json?jsonp=?', function(data) {
     
-    rootNode = createRootNode(data);
+    rootNode = convertProjectToNode(data);
     var upstreamProjects = data.upstreamProjects;
     $.each(upstreamProjects, function(index, project) {
       retrieveJobInfo(project, rootNode);
     });
     
-    buildItemList(data);
+    notifyLoaded(rootNode);
   });  
 }
 
@@ -235,13 +207,13 @@ function init() {
   //end
   
   
-  var addButton = document.getElementById('loadPipeline');
-  var jobUrlField = document.getElementById('jobUrl');
+  var addButton = document.getElementById('load-pipeline');
+  var jobUrlField = document.getElementById('job-url');
   addButton.onclick = function() {
     buildTree(st, jobUrlField.value);
   };
   
-  var refreshButton = document.getElementById('showTree');
+  var refreshButton = document.getElementById('show-tree');
   refreshButton.onclick = function() {
      //load json data
      st.loadJSON(rootNode);
