@@ -6,11 +6,14 @@ Little javascript tool that helps visualise pipelines in Jenkins/Hudson.
 Requires:
 ---------
 Sinatra (webserver) - http://www.sinatrarb.com/
-JQuery - http://jquery.com/
-Javascript Infovis Toolkit - http://thejit.org/
 
 and of course,
 Jenkins (CI Server) - http://jenkins-ci.org/
+
+Uses:
+-----
+JQuery - http://jquery.com/
+Javascript Infovis Toolkit - http://thejit.org/
 
 To Run:
 -------
