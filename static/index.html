@@ -14,16 +14,16 @@
       <div>Hudson URL to job:</div>
       <input id="job-url" type="textfield" size="100px" value="http://jenkins:8080/job/ApplicationX-Phase1"></input>
       <div><a href="javascript:void(0)" id="load-pipeline">Load Pipeline</a></div>
+      <div><a href="javascript:void(0)" id="show-tree">Show Tree</a></div>
     </div>
     <div id="container"> 
       <div id="left-container">
-        <div><a href="javascript:void(0)" id="show-tree">Show Tree</a></div>
         <div><ul id="id-list"></ul></div> 
       </div>
       <div id="center-container"> 
           <div id="infovis"></div>    
       </div>
-      <div id="right-container"> 
+      <div id="right-container" style="display:none"> 
         <div><a id="tree-pane-control" href="javascript:void(0)">[-]</a></div>
         <h4>Tree Orientation</h4> 
         <table> 
@@ -81,6 +81,7 @@
             </tr> 
         </table> 
       </div>
+
       <div id="log"></div> 
     </div>
   </body>

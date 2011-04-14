@@ -209,6 +209,12 @@ function init() {
   
   var addButton = document.getElementById('load-pipeline');
   var jobUrlField = document.getElementById('job-url');
+
+  $('#job-url').keypress(function(event) {
+    if (event.which == '13') {
+      buildTree(st, jobUrlField.value);
+    }
+  });
   addButton.onclick = function() {
     buildTree(st, jobUrlField.value);
   };
