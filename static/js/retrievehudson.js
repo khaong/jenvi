@@ -235,13 +235,13 @@ function init() {
   //end
   
   
-  var addButton = document.getElementById('addSubtree');
+  var addButton = document.getElementById('loadPipeline');
   var jobUrlField = document.getElementById('jobUrl');
   addButton.onclick = function() {
     buildTree(st, jobUrlField.value);
   };
   
-  var refreshButton = document.getElementById('refresh');
+  var refreshButton = document.getElementById('showTree');
   refreshButton.onclick = function() {
      //load json data
      st.loadJSON(rootNode);
