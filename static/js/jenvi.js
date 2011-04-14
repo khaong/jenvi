@@ -52,7 +52,7 @@ function translateColour(colour) {
 }
 
 var nodeWidth = 120;
-var nodeHeight = 45;
+var nodeHeight = 44;
 
 function createLabel(label, node){
     label.id = node.id;            
