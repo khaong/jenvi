@@ -15,6 +15,15 @@ describe('Watchdog should monitor state of running job requests', function() {
     expect(watchdog.pendingJobs()).toBeTruthy();
   });
 
+  it("should return false if a single job has finished", function() {
+    var job = "job";
+    watchdog.addJob(job);
+
+    watchdog.jobFinished(job);
+
+    expect(watchdog.pendingJobs()).toBeFalsy();
+  });
+
   it("should return false if all jobs have finished", function(){
     var firstJob = "xx";
     var secondJob = "yy";
