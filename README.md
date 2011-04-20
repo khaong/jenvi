@@ -25,7 +25,7 @@ Build/Test:
 
 To Run:
 -------
-*   $ ruby -rubygems lib/jenvi.rb
+*   $ rake run
 *   Browse to http://localhost:4567
 *   Give it the url to the Jenkins job which is the final stage of your pipeline
-*   Hit "Load Pipeline", then "Show Tree" (currently needs two steps due to as-yet-unresolved ajax issues)
+*   Hit "Load Pipeline"
