@@ -1,6 +1,7 @@
 require 'jasmine'
 load 'jasmine/tasks/jasmine.rake'
-require 'jslint'
+require 'jslint_on_rails'
+
 JSLint.config_path = "config/jslint.yml"
 
 task :default => ['jslint', 'jasmine:ci'] do
@@ -14,4 +15,8 @@ task :jslint do
   )
 
   lint.run
+end
+
+task :run do
+  ruby('-rubygems', 'lib/jenvi.rb')
 end

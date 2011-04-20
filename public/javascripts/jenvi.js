@@ -1,7 +1,6 @@
 var labelType, useGradients, nativeTextSupport, animate;
 var st, rootNode;
 
-
 (function() {
   var doesCanvasSupportFillText = function() {
     return (typeof document.createElement('canvas').getContext('2d').fillText == 'function');
