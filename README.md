@@ -5,7 +5,7 @@ Little javascript tool that helps visualise pipelines in Jenkins/Hudson.
 
 Requires:
 ---------
-Ruby
+###Ruby
 *   Sinatra (webserver) - http://www.sinatrarb.com/
 *   jslint_on_rails gem
 *   jasmine (BDD for JavaScript) gem

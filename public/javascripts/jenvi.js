@@ -1,5 +1,5 @@
 var labelType, useGradients, nativeTextSupport, animate;
-var st, rootNode;
+var st;
 
 (function() {
   var doesCanvasSupportFillText = function() {
@@ -85,7 +85,7 @@ function createSpaceTree() {
 
     orientation: "right",
     align: "center",
-    offsetX: -340,
+    offsetX: -300,
 
     //enable panning
     Navigation: {
@@ -178,9 +178,9 @@ function retrieveJobInfo(project, node) {
   });
 }
 
-function renderTree() {
+function renderTree(node) {
   //load json data
-  st.loadJSON(rootNode);
+  st.loadJSON(node);
   //compute node positions and layout
   st.compute();
   //optional: make a translation of the tree
@@ -191,13 +191,13 @@ function renderTree() {
 
 function notifyLoaded(node) {
   $('#id-list').prepend('<li>Loaded ' + node.name + '</li>');
-  renderTree();
+  renderTree(node);
 }
 
 function buildTree(jobUrl) {
   $.getJSON(jobUrl + '/api/json?jsonp=?', function(data) {
 
-    rootNode = convertProjectToNode(data);
+    var rootNode = convertProjectToNode(data);
     var upstreamProjects = data.upstreamProjects;
     $.each(upstreamProjects, function(index, project) {
       retrieveJobInfo(project, rootNode);
